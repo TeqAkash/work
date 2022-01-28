@@ -23,6 +23,7 @@
 
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
+use Cake\Routing\Router;
 
 return static function (RouteBuilder $routes) {
     /*
@@ -52,6 +53,13 @@ return static function (RouteBuilder $routes) {
          */
         $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
         $builder->connect('/first', ['controller' => 'Doctors', 'action' => 'firstpage']);
+
+        $builder->prefix('Admin', function (RouteBuilder $routes) {
+            // Because you are in the admin scope,
+            // you do not need to include the /admin prefix
+            // or the Admin route element.
+            $routes->connect('/login', ['controller' => 'Doctors', 'action' => 'login']);
+            });
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.

@@ -12,6 +12,7 @@
           
           <li><a class="drop" href="#">Doctor Page</a>
             <ul>`
+              <li><a href="/admin/login">Admin Login</a></li>
               <li><a href="/doctors/login">Doctor Login</a></li>
               <li><a href="/departments">Appointment's For Doctor</a></li>
               <li><a href="/doctors">Doctor Listing </a></li>

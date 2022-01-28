@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller;
-
+namespace App\Controller\Admin;
+// use Cake\AppController\Admin;
 use App\Controller\AppController;
 use Cake\Auth\DefaultPasswordHasher;
 use Cake\Datasource\ConnectionManager;
@@ -67,7 +67,8 @@ class DoctorsController extends AppController
         if ($this->request->is('post')) {
             $doctor = $this->Doctors->patchEntity($doctor, $this->request->getData());
             if ($this->Doctors->save($doctor)) {
-                $this->Flash->success(__('The doctor has been saved.'));
+                $this->Flash->
+                success(__('The doctor has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -126,10 +127,10 @@ class DoctorsController extends AppController
     parent::beforeFilter($event);
     // Configure the login action to not require authentication, preventing
     // the infinite redirect loop issue
-    $this->Authentication->addUnauthenticatedActions(['login','firstpage','forget','reset','sendMail']);
+    $this->Authentication->addUnauthenticatedActions(['login','add','firstpage','forget','reset','sendMail']);
     }
 
-        public function login()
+     public function login()
     {
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
@@ -139,10 +140,10 @@ class DoctorsController extends AppController
                 $admin = $values->admin;
                 $status = $values->status;
                 // $id = $values->id;
-                if ($admin == 2 && $status == 1) {
+                if ($admin == 1 && $status == 1) {
                     return $this->redirect(['controller' => 'Doctors', 'action' => 'index']);
                     $this->Authentication->addUnauthenticatedActions(['view', 'edit']);
-                } else if ($admin == 2 && $status == 2) {
+                } else if ($admin == 1 && $status == 2) {
                     $this->redirect(['controller' => 'Doctors', 'action' => 'logout']);
                     return $this->Flash->error(__('this email is not verified contact admin to change the details'));
                 } else {
@@ -179,14 +180,13 @@ class DoctorsController extends AppController
     //     $this->Flash->error(__('Invalid username or password'));
     // }
     // }
-
     public function logout()
     {
     $result = $this->Authentication->getResult();
     // regardless of POST or GET, redirect if user is logged in
     if ($result->isValid()) {
         $this->Authentication->logout();
-        return $this->redirect(['controller' => 'Doctors', 'action' => 'login']);
+        return $this->redirect(['controller' => 'Doctors', 'action' => 'firstpage']);
     }
     }
 
