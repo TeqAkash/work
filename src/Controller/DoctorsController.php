@@ -129,24 +129,31 @@ class DoctorsController extends AppController
     $this->Authentication->addUnauthenticatedActions(['login','firstpage','forget','reset','sendMail']);
     }
 
-        public function login()
+    public function login()
     {
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
         // regardless of POST or GET, redirect if user is logged in
         if ($result->isValid()) { {
                 $values = $this->Authentication->getIdentity();
-                $admin = $values->admin;
+                $admin = $values->admn;
                 $status = $values->status;
+                //dd($status,$admin);
                 // $id = $values->id;
                 if ($admin == 2 && $status == 1) {
-                    return $this->redirect(['controller' => 'Doctors', 'action' => 'index']);
-                    $this->Authentication->addUnauthenticatedActions(['view', 'edit']);
+                    $redirect = $this->request->getQuery('redirect', [
+            'controller' => 'Doctors',
+            'action' => 'view',
+            $this->request->getAttribute('identity')->getIdentifier()
+            
+                ]);
+
+                return $this->redirect($redirect);
                 } else if ($admin == 2 && $status == 2) {
                     $this->redirect(['controller' => 'Doctors', 'action' => 'logout']);
-                    return $this->Flash->error(__('this email is not verified contact admin to change the details'));
+                    return $this->Flash->error(__('You Are Inactive '));
                 } else {
-                    $this->Flash->error(__('Not Valid Details'));
+                    $this->Flash->error(__('Enter valid details '));
                     return $this->redirect(['controller' => 'Doctors', 'action' => 'logout']);
                 }
             }
@@ -201,6 +208,7 @@ class DoctorsController extends AppController
         [ "email" => implode($email) ]);
         if($data){
         $this->redirect(['action'=>'sendMail',$token]);
+        
         }
         }
         else{

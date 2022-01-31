@@ -14,7 +14,7 @@
                     <th><?= $this->Paginator->sort('name') ?></th>
                     <th><?= $this->Paginator->sort('department_id') ?></th>
                     <th><?= $this->Paginator->sort('email') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
+                   
                 </tr>
             </thead>
             <tbody>
@@ -24,11 +24,7 @@
                     <td><?= h($doctor->name) ?></td>
                     <td><?= $doctor->has('department') ? $this->Html->link($doctor->department->name, ['controller' => 'Departments', 'action' => 'view', $doctor->department->id]) : '' ?></td>
                     <td><?= h($doctor->email) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $doctor->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $doctor->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $doctor->id], ['confirm' => __('Are you sure you want to delete # {0}?', $doctor->id)]) ?>
-                    </td>
+                    
                 </tr>
                 <?php endforeach; ?>
             </tbody>

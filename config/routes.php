@@ -51,14 +51,16 @@ return static function (RouteBuilder $routes) {
          * its action called 'display', and we pass a param to select the view file
          * to use (in this case, templates/Pages/home.php)...
          */
-        $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
-        $builder->connect('/first', ['controller' => 'Doctors', 'action' => 'firstpage']);
+        //$builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+        //$builder->connect('/first', ['controller' => 'Doctors', 'action' => 'firstpage']);
 
         $builder->prefix('Admin', function (RouteBuilder $routes) {
             // Because you are in the admin scope,
             // you do not need to include the /admin prefix
             // or the Admin route element.
             $routes->connect('/login', ['controller' => 'Doctors', 'action' => 'login']);
+            $routes->connect('/index', ['controller' => 'Doctors', 'action' => 'index']);
+            $routes->connect('/pindex', ['controller' => 'Patients', 'action' => 'index']);
             });
 
         /*

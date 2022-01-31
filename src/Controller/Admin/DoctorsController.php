@@ -32,12 +32,14 @@ class DoctorsController extends AppController
      */
     public function index()
     {
+
         $this->paginate = [
             'contain' => ['Departments'],
         ];
         $doctors = $this->paginate($this->Doctors);
 
         $this->set(compact('doctors'));
+
     }
 
     /**
@@ -127,6 +129,8 @@ class DoctorsController extends AppController
     parent::beforeFilter($event);
     // Configure the login action to not require authentication, preventing
     // the infinite redirect loop issue
+    $this->set('prefixUsed',$this->request->getParam('prefix'));
+     //dd($this->request->getParam('prefix'));
     $this->Authentication->addUnauthenticatedActions(['login','add','firstpage','forget','reset','sendMail']);
     }
 
@@ -134,21 +138,23 @@ class DoctorsController extends AppController
     {
         $this->request->allowMethod(['get', 'post']);
         $result = $this->Authentication->getResult();
+
         // regardless of POST or GET, redirect if user is logged in
         if ($result->isValid()) { {
                 $values = $this->Authentication->getIdentity();
-                $admin = $values->admin;
+                $admin = $values->admn;
                 $status = $values->status;
+                
                 // $id = $values->id;
                 if ($admin == 1 && $status == 1) {
-                    return $this->redirect(['controller' => 'Doctors', 'action' => 'index']);
-                    $this->Authentication->addUnauthenticatedActions(['view', 'edit']);
+                    return $this->redirect('admin/index');
+                    // $this->Authentication->addUnauthenticatedActions(['view', 'edit']);
                 } else if ($admin == 1 && $status == 2) {
-                    $this->redirect(['controller' => 'Doctors', 'action' => 'logout']);
-                    return $this->Flash->error(__('this email is not verified contact admin to change the details'));
+                    $this->redirect(['prefix'=>false,'controller' => 'Doctors', 'action' => 'logout']);
+                    return $this->Flash->error(__('Pls Contact your head Admin'));
                 } else {
-                    $this->Flash->error(__('Not Valid Details'));
-                    return $this->redirect(['controller' => 'Doctors', 'action' => 'logout']);
+                    $this->Flash->error(__('Sorry Wrong Destination'));
+                    return $this->redirect(['prefix'=>false,'controller' => 'Doctors', 'action' => 'logout']);
                 }
             }
           
@@ -186,7 +192,7 @@ class DoctorsController extends AppController
     // regardless of POST or GET, redirect if user is logged in
     if ($result->isValid()) {
         $this->Authentication->logout();
-        return $this->redirect(['controller' => 'Doctors', 'action' => 'firstpage']);
+        return $this->redirect(['prefix'=>false,'controller' => 'Doctors', 'action' => 'firstpage']);
     }
     }
 

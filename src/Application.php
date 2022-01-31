@@ -140,7 +140,7 @@ class Application extends BaseApplication
             'username' => 'email',
             'password' => 'password',
         ],
-        'loginUrl' => Router::url('/doctors/login'),
+        // 'loginUrl' => Router::url('/doctors/login'),
     ]);
 
     return $authenticationService;

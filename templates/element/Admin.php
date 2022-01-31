@@ -14,7 +14,7 @@
             <ul>`
               <li><a href="/admin/login">Admin Login</a></li>
               <li><a href="/doctors/login">Doctor Login</a></li>
-              <li><a href="/departments">Appointment's For Doctor</a></li>
+              <li><a href="/admin/pindex">Patient Listing </a></li>
               <li><a href="/doctors">Doctor Listing </a></li>
               <li><a href="/doctors/logout">Logout</a></li>
             </ul>
@@ -23,8 +23,6 @@
             <ul>
               <li><a href="/doctors/add">New Doctor </a></li>
               <li><a href="/departments/add">New Department</a></li>
-              <li><a href="/admin/index">Doctor Listing </a></li>
-              <li><a href="/admin/pindex">Patient Listing </a></li>
               
             </ul>
           </li>

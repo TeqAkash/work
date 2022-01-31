@@ -17,6 +17,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <?= $this->element('simpleerror'); ?>
     <?= $this->Html->charset() ?>
     <title>
         <?= $this->fetch('title') ?>
@@ -25,7 +26,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 
-    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
+    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake','simpleerror']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
